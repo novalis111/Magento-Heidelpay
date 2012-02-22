@@ -1,0 +1,7 @@
+# Exanto_Heidelpay
+app/code/community/Exanto/Heidelpay                                             app/code/community/Exanto/Heidelpay
+app/design/adminhtml/default/default/template/heidelpay                         app/design/adminhtml/default/default/template/heidelpay
+app/design/frontend/base/default/layout/heidelpay.xml                           app/design/frontend/base/default/layout/heidelpay.xml
+app/design/frontend/base/default/template/heidelpay                             app/design/frontend/base/default/template/heidelpay
+app/etc/modules/Exanto_Heidelpay.xml                                            app/etc/modules/Exanto_Heidelpay.xml
+app/locale/de_DE/Exanto_Heidelpay.csv                                           app/locale/de_DE/Exanto_Heidelpay.csv

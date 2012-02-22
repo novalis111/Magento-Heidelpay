@@ -1,0 +1,42 @@
+/**
+ * Heidelpay WPF CSS
+ *
+ * Here you can customize the appearance of the Heidelpay WPF
+ */
+
+html, body, .bar {
+    background:transparent;
+    font-family:Verdana,sans-serif;
+    color:#000 !important;
+	overflow:visible;
+}
+
+table {
+	border:0;
+	margin:0;
+	padding:0;
+	background:transparent;
+}
+
+table td {
+    padding:3px 0;
+}
+
+.frm_box {
+    background:transparent;
+    border:none;
+}
+
+#header_bar,
+#notMandatoryRow,
+#contactBlock,
+#userInfoBlock,
+#addressBlock,
+.bar {
+    display:none;
+}
+
+form, tr, td {
+	border:none;
+	background:transparent;
+}

@@ -1,0 +1,977 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Exanto
+ * @package    Exanto_Heidelpay
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2008 Phoenix Medien GmbH & Co. KG (http://www.phoenix-medien.de)
+ * @copyright  Copyright (c) 2009 eXanto Internet Solutions (http://www.exanto.de)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+   <sections>
+        <!-- Zahlungsmöglichkeiten Tab -->
+        <payment>
+            <groups>
+                <!-- Heidelpay CC Fieldset -->
+                <heidelpay_cc translate="label" module="heidelpay">
+                    <!-- Titel -->
+                    <label>Heidelpay Credit Card</label>
+                    <frontend_type>text</frontend_type>
+                    <!-- Position zwischen den anderen Bezahlmethoden -->
+                    <sort_order>300</sort_order>
+                    <!-- Konfigurationsoption nicht im Store-Kontext zeigen -->
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <!-- Titel des Moduls -->
+                        <title translate="label">
+                            <label>Titel</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </title>
+                        <!-- Ist diese Bezahlmethode aktiv für die Website? -->
+                        <active translate="label">
+                            <!-- Bezeichnung für das Feld -->
+                            <label>Aktiviert</label>
+                            <!-- Eingabetyp für dieses Feld (Freitext, Dropdown etc.) -->
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>20</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <!-- Status der Bestellung nach Bezahlung mit diesem Modul? -->
+                        <order_status translate="label">
+                            <label>New Order Status</label>
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen -->
+                            <source_model>adminhtml/system_config_source_order_status</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>30</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </order_status>
+                        <!-- Bezahlmethode nur in bestimmten Ländern erlauben -->
+                        <allowspecific translate="label">
+                            <label>Payment to applicable countries</label>
+                            <frontend_type>allowspecific</frontend_type>
+                            <sort_order>40</sort_order>
+                            <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allowspecific>
+                        <specificcountry translate="label">
+                            <label>Payment to Specific countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>50</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </specificcountry>
+                        <!-- Registrierung vor Debit? -->
+                        <hp_registry translate="label">
+                            <!-- Bezeichnung für das Feld -->
+                            <label>Perform Registration</label>
+                            <!-- Eingabetyp für dieses Feld (Freitext, Dropdown etc.) -->
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>60</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_registry>
+                        <!-- Betrag nur reservieren? -->
+                        <hp_preauth translate="label">
+                            <!-- Bezeichnung für das Feld -->
+                            <label>Preauthorisation</label>
+                            <!-- Eingabetyp für dieses Feld (Freitext, Dropdown etc.) -->
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>65</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_preauth>
+                        <!-- Im Testmodus? Nur Admin kann Modul nutzen -->
+                        <hp_testmode translate="label">
+                            <label>Testmode</label>
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>70</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_testmode>
+                        <!-- Sender-String (Heidelpay Zugang) -->
+                        <hp_sender translate="label">
+                            <label>Sender ID</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>80</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_sender>
+                        <!-- Channel-String (Heidelpay Zugang) -->
+                        <hp_channel translate="label">
+                            <label>Channel ID</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>90</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_channel>
+                        <!-- User Login (Heidelpay Zugang) ? -->
+                        <hp_user_login translate="label">
+                            <label>User Login</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>100</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_user_login>
+                        <!-- User Login (Heidelpay Zugang) ? -->
+                        <hp_user_password translate="label">
+                            <label>User Passwort</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>110</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_user_password>
+                        <sort_order translate="label">
+                            <label>Sort order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sort_order>
+                    </fields>
+                </heidelpay_cc>
+                <!-- Heidelpay DD Fieldset -->
+                <heidelpay_dd translate="label" module="heidelpay">
+                    <!-- Titel -->
+                    <label>Heidelpay Direct Debit</label>
+                    <frontend_type>text</frontend_type>
+                    <!-- Position zwischen den anderen Bezahlmethoden -->
+                    <sort_order>310</sort_order>
+                    <!-- Konfigurationsoption nicht im Store-Kontext zeigen -->
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <!-- Titel des Moduls -->
+                        <title translate="label">
+                            <label>Titel</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </title>
+                        <!-- Ist diese Bezahlmethode aktiv für die Website? -->
+                        <active translate="label">
+                            <!-- Bezeichnung für das Feld -->
+                            <label>Aktiviert</label>
+                            <!-- Eingabetyp für dieses Feld (Freitext, Dropdown etc.) -->
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>20</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <!-- Status der Bestellung nach Bezahlung mit diesem Modul? -->
+                        <order_status translate="label">
+                            <label>New Order Status</label>
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen -->
+                            <source_model>adminhtml/system_config_source_order_status</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>30</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </order_status>
+                        <!-- Bezahlmethode nur in bestimmten Ländern erlauben -->
+                        <allowspecific translate="label">
+                            <label>Payment to applicable countries</label>
+                            <frontend_type>allowspecific</frontend_type>
+                            <sort_order>40</sort_order>
+                            <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allowspecific>
+                        <specificcountry translate="label">
+                            <label>Payment to Specific countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>50</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </specificcountry>
+                        <!-- Registrierung vor Debit? -->
+                        <hp_registry translate="label">
+                            <!-- Bezeichnung für das Feld -->
+                            <label>Perform Registration</label>
+                            <!-- Eingabetyp für dieses Feld (Freitext, Dropdown etc.) -->
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>55</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_registry>
+                        <!-- Betrag nur reservieren? -->
+                        <hp_preauth translate="label">
+                            <!-- Bezeichnung für das Feld -->
+                            <label>Preauthorisation</label>
+                            <!-- Eingabetyp für dieses Feld (Freitext, Dropdown etc.) -->
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>65</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_preauth>
+                        <!-- Im Testmodus? Nur Admin kann Modul nutzen -->
+                        <hp_testmode translate="label">
+                            <label>Testmode</label>
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>60</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_testmode>
+                        <!-- Sender-String (Heidelpay Zugang) -->
+                        <hp_sender translate="label">
+                            <label>Sender ID</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>70</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_sender>
+                        <!-- Channel-String (Heidelpay Zugang) -->
+                        <hp_channel translate="label">
+                            <label>Channel ID</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>80</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_channel>
+                        <!-- User Login (Heidelpay Zugang) ? -->
+                        <hp_user_login translate="label">
+                            <label>User Login</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>90</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_user_login>
+                        <!-- User Login (Heidelpay Zugang) ? -->
+                        <hp_user_password translate="label">
+                            <label>User Passwort</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>100</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_user_password>
+                        <sort_order translate="label">
+                            <label>Sort order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sort_order>
+                    </fields>
+                </heidelpay_dd>
+                <!-- Heidelpay DC Fieldset -->
+                <heidelpay_dc translate="label" module="heidelpay">
+                    <!-- Titel -->
+                    <label>Heidelpay Debit Card</label>
+                    <frontend_type>text</frontend_type>
+                    <!-- Position zwischen den anderen Bezahlmethoden -->
+                    <sort_order>320</sort_order>
+                    <!-- Konfigurationsoption nicht im Store-Kontext zeigen -->
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <!-- Titel des Moduls -->
+                        <title translate="label">
+                            <label>Titel</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </title>
+                        <!-- Ist diese Bezahlmethode aktiv für die Website? -->
+                        <active translate="label">
+                            <!-- Bezeichnung für das Feld -->
+                            <label>Aktiviert</label>
+                            <!-- Eingabetyp für dieses Feld (Freitext, Dropdown etc.) -->
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>20</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <!-- Status der Bestellung nach Bezahlung mit diesem Modul? -->
+                        <order_status translate="label">
+                            <label>New Order Status</label>
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen -->
+                            <source_model>adminhtml/system_config_source_order_status</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>30</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </order_status>
+                        <!-- Bezahlmethode nur in bestimmten Ländern erlauben -->
+                        <allowspecific translate="label">
+                            <label>Payment to applicable countries</label>
+                            <frontend_type>allowspecific</frontend_type>
+                            <sort_order>40</sort_order>
+                            <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allowspecific>
+                        <specificcountry translate="label">
+                            <label>Payment to Specific countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>50</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </specificcountry>
+                        <!-- Registrierung vor Debit? -->
+                        <hp_registry translate="label">
+                            <!-- Bezeichnung für das Feld -->
+                            <label>Perform Registration</label>
+                            <!-- Eingabetyp für dieses Feld (Freitext, Dropdown etc.) -->
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>55</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_registry>
+                        <!-- Betrag nur reservieren? -->
+                        <hp_preauth translate="label">
+                            <!-- Bezeichnung für das Feld -->
+                            <label>Preauthorisation</label>
+                            <!-- Eingabetyp für dieses Feld (Freitext, Dropdown etc.) -->
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>65</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_preauth>
+                        <!-- Im Testmodus? Nur Admin kann Modul nutzen -->
+                        <hp_testmode translate="label">
+                            <label>Testmode</label>
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>60</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_testmode>
+                        <!-- Sender-String (Heidelpay Zugang) -->
+                        <hp_sender translate="label">
+                            <label>Sender ID</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>70</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_sender>
+                        <!-- Channel-String (Heidelpay Zugang) -->
+                        <hp_channel translate="label">
+                            <label>Channel ID</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>80</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_channel>
+                        <!-- User Login (Heidelpay Zugang) ? -->
+                        <hp_user_login translate="label">
+                            <label>User Login</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>90</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_user_login>
+                        <!-- User Login (Heidelpay Zugang) ? -->
+                        <hp_user_password translate="label">
+                            <label>User Passwort</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>100</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_user_password>
+                        <sort_order translate="label">
+                            <label>Sort order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sort_order>
+                    </fields>
+                </heidelpay_dc>
+                <!-- Heidelpay OT Fieldset -->
+                <heidelpay_ot translate="label" module="heidelpay">
+                    <!-- Titel -->
+                    <label>Heidelpay Online Transfer</label>
+                    <frontend_type>text</frontend_type>
+                    <!-- Position zwischen den anderen Bezahlmethoden -->
+                    <sort_order>330</sort_order>
+                    <!-- Konfigurationsoption nicht im Store-Kontext zeigen -->
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <!-- Titel des Moduls -->
+                        <title translate="label">
+                            <label>Titel</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </title>
+                        <!-- Ist diese Bezahlmethode aktiv für die Website? -->
+                        <active translate="label">
+                            <!-- Bezeichnung für das Feld -->
+                            <label>Aktiviert</label>
+                            <!-- Eingabetyp für dieses Feld (Freitext, Dropdown etc.) -->
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>20</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <!-- Status der Bestellung nach Bezahlung mit diesem Modul? -->
+                        <order_status translate="label">
+                            <label>New Order Status</label>
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen -->
+                            <source_model>adminhtml/system_config_source_order_status</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>30</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </order_status>
+                        <!-- Bezahlmethode nur in bestimmten Ländern erlauben -->
+                        <allowspecific translate="label">
+                            <label>Payment to applicable countries</label>
+                            <frontend_type>allowspecific</frontend_type>
+                            <sort_order>40</sort_order>
+                            <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allowspecific>
+                        <specificcountry translate="label">
+                            <label>Payment to Specific countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>50</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </specificcountry>
+                        <!-- Registrierung vor Debit? -->
+                        <hp_registry translate="label">
+                            <!-- Bezeichnung für das Feld -->
+                            <label>Perform Registration</label>
+                            <!-- Eingabetyp für dieses Feld (Freitext, Dropdown etc.) -->
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>55</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_registry>
+                        <!-- Im Testmodus? Nur Admin kann Modul nutzen -->
+                        <hp_testmode translate="label">
+                            <label>Testmode</label>
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>60</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_testmode>
+                        <!-- Sender-String (Heidelpay Zugang) -->
+                        <hp_sender translate="label">
+                            <label>Sender ID</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>70</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_sender>
+                        <!-- Channel-String (Heidelpay Zugang) -->
+                        <hp_channel translate="label">
+                            <label>Channel ID</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>80</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_channel>
+                        <!-- User Login (Heidelpay Zugang) ? -->
+                        <hp_user_login translate="label">
+                            <label>User Login</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>90</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_user_login>
+                        <!-- User Login (Heidelpay Zugang) ? -->
+                        <hp_user_password translate="label">
+                            <label>User Passwort</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>100</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_user_password>
+                        <sort_order translate="label">
+                            <label>Sort order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sort_order>
+                    </fields>
+                </heidelpay_ot>
+                <!-- Heidelpay OT_SU Fieldset -->
+                <heidelpay_ot_su translate="label" module="heidelpay">
+                    <!-- Titel -->
+                    <label>Heidelpay Sofortueberweisung.de</label>
+                    <frontend_type>text</frontend_type>
+                    <!-- Position zwischen den anderen Bezahlmethoden -->
+                    <sort_order>340</sort_order>
+                    <!-- Konfigurationsoption nicht im Store-Kontext zeigen -->
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <!-- Titel des Moduls -->
+                        <title translate="label">
+                            <label>Titel</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </title>
+                        <!-- Ist diese Bezahlmethode aktiv für die Website? -->
+                        <active translate="label">
+                            <!-- Bezeichnung für das Feld -->
+                            <label>Aktiviert</label>
+                            <!-- Eingabetyp für dieses Feld (Freitext, Dropdown etc.) -->
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>20</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <!-- Status der Bestellung nach Bezahlung mit diesem Modul? -->
+                        <order_status translate="label">
+                            <label>New Order Status</label>
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen -->
+                            <source_model>adminhtml/system_config_source_order_status</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>30</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </order_status>
+                        <!-- Bezahlmethode nur in bestimmten Ländern erlauben -->
+                        <allowspecific translate="label">
+                            <label>Payment to applicable countries</label>
+                            <frontend_type>allowspecific</frontend_type>
+                            <sort_order>40</sort_order>
+                            <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allowspecific>
+                        <specificcountry translate="label">
+                            <label>Payment to Specific countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>50</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </specificcountry>
+                        <!-- Registrierung vor Debit? -->
+                        <hp_registry translate="label">
+                            <!-- Bezeichnung für das Feld -->
+                            <label>Perform Registration</label>
+                            <!-- Eingabetyp für dieses Feld (Freitext, Dropdown etc.) -->
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>55</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_registry>
+                        <!-- Im Testmodus? Nur Admin kann Modul nutzen -->
+                        <hp_testmode translate="label">
+                            <label>Testmode</label>
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>60</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_testmode>
+                        <!-- Sender-String (Heidelpay Zugang) -->
+                        <hp_sender translate="label">
+                            <label>Sender ID</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>70</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_sender>
+                        <!-- Channel-String (Heidelpay Zugang) -->
+                        <hp_channel translate="label">
+                            <label>Channel ID</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>80</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_channel>
+                        <!-- User Login (Heidelpay Zugang) ? -->
+                        <hp_user_login translate="label">
+                            <label>User Login</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>90</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_user_login>
+                        <!-- User Login (Heidelpay Zugang) ? -->
+                        <hp_user_password translate="label">
+                            <label>User Passwort</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>100</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_user_password>
+                        <sort_order translate="label">
+                            <label>Sort order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sort_order>
+                    </fields>
+                </heidelpay_ot_su>
+                <!-- Heidelpay OT_TP Fieldset -->
+                <heidelpay_ot_tp translate="label" module="heidelpay">
+                    <!-- Titel -->
+                    <label>Heidelpay T-Pay</label>
+                    <frontend_type>text</frontend_type>
+                    <!-- Position zwischen den anderen Bezahlmethoden -->
+                    <sort_order>350</sort_order>
+                    <!-- Konfigurationsoption nicht im Store-Kontext zeigen -->
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <!-- Titel des Moduls -->
+                        <title translate="label">
+                            <label>Titel</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </title>
+                        <!-- Ist diese Bezahlmethode aktiv für die Website? -->
+                        <active translate="label">
+                            <!-- Bezeichnung für das Feld -->
+                            <label>Aktiviert</label>
+                            <!-- Eingabetyp für dieses Feld (Freitext, Dropdown etc.) -->
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>20</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <!-- Status der Bestellung nach Bezahlung mit diesem Modul? -->
+                        <order_status translate="label">
+                            <label>New Order Status</label>
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen -->
+                            <source_model>adminhtml/system_config_source_order_status</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>30</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </order_status>
+                        <!-- Bezahlmethode nur in bestimmten Ländern erlauben -->
+                        <allowspecific translate="label">
+                            <label>Payment to applicable countries</label>
+                            <frontend_type>allowspecific</frontend_type>
+                            <sort_order>40</sort_order>
+                            <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allowspecific>
+                        <specificcountry translate="label">
+                            <label>Payment to Specific countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>50</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </specificcountry>
+                        <!-- Registrierung vor Debit? -->
+                        <hp_registry translate="label">
+                            <!-- Bezeichnung für das Feld -->
+                            <label>Perform Registration</label>
+                            <!-- Eingabetyp für dieses Feld (Freitext, Dropdown etc.) -->
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>55</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_registry>
+                        <!-- Im Testmodus? Nur Admin kann Modul nutzen -->
+                        <hp_testmode translate="label">
+                            <label>Testmode</label>
+                            <frontend_type>select</frontend_type>
+                            <!-- Model von dem die Optionswerte kommen sollen (Ja/Nein) -->
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <!-- Feldposition -->
+                            <sort_order>60</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_testmode>
+                        <!-- Sender-String (Heidelpay Zugang) -->
+                        <hp_sender translate="label">
+                            <label>Sender ID</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>70</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_sender>
+                        <!-- Channel-String (Heidelpay Zugang) -->
+                        <hp_channel translate="label">
+                            <label>Channel ID</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>80</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_channel>
+                        <!-- User Login (Heidelpay Zugang) ? -->
+                        <hp_user_login translate="label">
+                            <label>User Login</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>90</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_user_login>
+                        <!-- User Login (Heidelpay Zugang) ? -->
+                        <hp_user_password translate="label">
+                            <label>User Passwort</label>
+                            <frontend_type>text</frontend_type>
+                            <!-- Feldposition -->
+                            <sort_order>100</sort_order>
+                            <!-- Dieses Feld nicht im Store-Kontext zeigen -->
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hp_user_password>
+                        <sort_order translate="label">
+                            <label>Sort order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sort_order>
+                    </fields>
+                </heidelpay_ot_tp>
+            </groups>
+        </payment>
+    </sections>
+</config>

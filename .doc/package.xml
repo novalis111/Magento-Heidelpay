@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+    http://pear.php.net/dtd/tasks-1.0.xsd
+    http://pear.php.net/dtd/package-2.0
+    http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Exanto_Heidelpay</name>
+ <channel>connect.magentocommerce.com/community</channel>
+ <summary>Heidelpay Payment Schnittstelle für Kreditkarte, Direct Debit, Debit Card und Online Transfer (Sofortueberweisung.de, T-Pay u.a.)</summary>
+ <description>Frontend für Heidelpay Deutschland. Die momentan integrierten Zahlweisen sind Kreditkarte, Direct Debit (Bankeinzug für DE, AT, NL und ES), Debit Card (Lastschriftkarten) und Online Transfer (IDEAL, Giropay, EPS, Sofortueberweisung.de, T-Pay). Alle Zahlarten werden über das von Heidelpay bereitgestellte &quot;Web Payment Frontend&quot; (kurz WPF) abgewickelt.
+
+Als Zusatzoption kann bei jeder Zahlungsart eine Registrierung des Kunden vor der eigentlichen Zahlung durchgeführt werden. Diese Funktion ist z.B. nützlich für Abosysteme mit wiederkehrenden Zahlungen.
+
+Seit Version 0.9.3 wird auch der Warenbestand bei abgebrochener Zahlung wieder hochgezählt. Diese Funktion ist z.B. beim Live-Shopping hilfreich.
+
+Seit Version 0.9.5 kann die Zahlung reserviert werden bei den Zahlmethoden Kreditkarte, Bankeinzug und Lastschriftkarte. Diese Funktion ist nützlich, wenn Sie z.B. erst den Warenbestand prüfen müssen bevor das Geld eingezogen wird.
+
+Seit Version 0.9.6 gibt es zwei zusätzliche Channels für Sofortueberweisung.de und T-Pay.
+
+Der Kunde wird nach dem Abschicken der Bestellung in einem IFrame gebeten die Zahldaten einzugeben. Das Formular dafür wird von Heidelpay geladen (WPF), die Abwicklung selbst läuft allerdings im Kontext des Shops ab.</description>
+ <lead>
+  <name>Ingo Weseloh</name>
+  <user>novalis</user>
+  <email>info@exanto.de</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-03-01</date>
+ <time>14:42:13</time>
+ <version>
+  <release>0.9.7.2</release>
+  <api>1.2.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
+ <notes>Kleiner Fix um eine Notice bei Heidelpay Processing-Fehler zu unterdrücken.</notes>
+ <contents>
+  <dir name="/">
+   <dir name="adminhtml">
+    <dir name="default">
+     <dir name="default">
+      <dir name="template">
+       <dir name="heidelpay">
+        <dir name="">
+         <dir name="pdf">
+          <file md5sum="b1257426ebbd40962976f9fb09a16fba" name="info.phtml" role="magedesign" />
+         </dir> <!-- /adminhtml/default/default/template/heidelpay//pdf -->
+        </dir> <!-- /adminhtml/default/default/template/heidelpay/ -->
+        <file md5sum="fc8a2149f2c87762f016250c911a1717" name="info.phtml" role="magedesign" />
+       </dir> <!-- /adminhtml/default/default/template/heidelpay -->
+      </dir> <!-- /adminhtml/default/default/template -->
+     </dir> <!-- /adminhtml/default/default -->
+    </dir> <!-- /adminhtml/default -->
+   </dir> <!-- /adminhtml -->
+   <dir name="de_DE">
+    <file md5sum="fb39871a695f8be6f4706ccaa08d4cbe" name="Exanto_Heidelpay.csv" role="magelocale" />
+   </dir> <!-- /de_DE -->
+   <dir name="Exanto">
+    <dir name="Heidelpay">
+     <dir name="">
+      <dir name="Block">
+       <file md5sum="83b37996bf2df879664ab638e7a55862" name="Failure.php" role="magecommunity" />
+       <file md5sum="014d98829cb34c632dd46e49a5a80dba" name="Form.php" role="magecommunity" />
+       <file md5sum="109a95610031e9d6b80ecafe271ccbea" name="Index.php" role="magecommunity" />
+       <file md5sum="2682396d4eb52b8253b11fa54d4c9bb7" name="Info.php" role="magecommunity" />
+       <file md5sum="8d188c5ef41c8c8a1b76a0362b4b68f9" name="Processing.php" role="magecommunity" />
+       <file md5sum="22a5325bcb7a7a8d6bd93e6fc48cd906" name="Success.php" role="magecommunity" />
+      </dir> <!-- /Exanto/Heidelpay//Block -->
+      <dir name="controllers">
+       <file md5sum="b4e011f6eda74be156bab66f7dfd7bd4" name="ProcessController.php" role="magecommunity" />
+      </dir> <!-- /Exanto/Heidelpay//controllers -->
+      <dir name="etc">
+       <file md5sum="00ab5d9357e89d87957946176523d404" name="config.xml" role="magecommunity" />
+       <file md5sum="56d3ab2790b6eb1cd2041a04527d9321" name="system.xml" role="magecommunity" />
+      </dir> <!-- /Exanto/Heidelpay//etc -->
+      <dir name="Helper">
+       <file md5sum="d15b7897e77458154684013fbc9e6751" name="Data.php" role="magecommunity" />
+      </dir> <!-- /Exanto/Heidelpay//Helper -->
+      <dir name="Model">
+       <dir name="Entity">
+        <file md5sum="66ba52880058bee9a154965a5acf3702" name="Setup.php" role="magecommunity" />
+       </dir> <!-- /Exanto/Heidelpay//Model/Entity -->
+       <file md5sum="653153924581d26b6d988923d998b729" name="Cc.php" role="magecommunity" />
+       <file md5sum="b14b332441f14db7bbfa06878e92ba54" name="Dc.php" role="magecommunity" />
+       <file md5sum="e350e52485e5f7118e9ce4e1a683897a" name="Dd.php" role="magecommunity" />
+       <file md5sum="6afe63c75a597e14dc76f2fb2abd41d3" name="Ot.php" role="magecommunity" />
+       <file md5sum="c6c19f67e58d400140c918faa9da42b9" name="Otsu.php" role="magecommunity" />
+       <file md5sum="6c3ee27402f95288bb2387a6cef5d2b4" name="Shared.php" role="magecommunity" />
+      </dir> <!-- /Exanto/Heidelpay//Model -->
+      <dir name="sql">
+       <dir name="heidelpay_setup">
+        <file md5sum="3e6824b11483a965af042bf0bfbfd086" name="mysql4-install-0.9.1.php" role="magecommunity" />
+        <file md5sum="3e6824b11483a965af042bf0bfbfd086" name="mysql4-upgrade-0.9.0-0.9.1.php" role="magecommunity" />
+        <file md5sum="3e6824b11483a965af042bf0bfbfd086" name="mysql4-upgrade-0.9.2-0.9.3.php" role="magecommunity" />
+        <file md5sum="3e6824b11483a965af042bf0bfbfd086" name="mysql4-upgrade-0.9.3-0.9.4.php" role="magecommunity" />
+        <file md5sum="3e6824b11483a965af042bf0bfbfd086" name="mysql4-upgrade-0.9.4-0.9.5.php" role="magecommunity" />
+       </dir> <!-- /Exanto/Heidelpay//sql/heidelpay_setup -->
+      </dir> <!-- /Exanto/Heidelpay//sql -->
+     </dir> <!-- /Exanto/Heidelpay/ -->
+    </dir> <!-- /Exanto/Heidelpay -->
+   </dir> <!-- /Exanto -->
+   <dir name="frontend">
+    <dir name="default">
+     <dir name="default">
+      <dir name="css">
+       <file md5sum="fd4e7be656b668f4caf4daea522ef7fc" name="heidelpay_wpf.css" role="mageskin" />
+      </dir> <!-- /frontend/default/default/css -->
+      <dir name="js">
+       <file md5sum="71345f36e4ae08cdd48b692fdbf8a5ea" name="heidelpay_wpf.js" role="mageskin" />
+      </dir> <!-- /frontend/default/default/js -->
+      <dir name="layout">
+       <file md5sum="898d24865403f6a399ecaf00b1f6d89f" name="heidelpay.xml" role="magedesign" />
+      </dir> <!-- /frontend/default/default/layout -->
+      <dir name="template">
+       <dir name="heidelpay">
+        <file md5sum="719b8c52021d8017b273ead9908968cd" name="failure.phtml" role="magedesign" />
+        <file md5sum="ca2d2e2ef0e1c83ae7e68f8a4adb3004" name="form.phtml" role="magedesign" />
+        <file md5sum="c67bc289917797aa8e110bac5c1243ee" name="index.phtml" role="magedesign" />
+        <file md5sum="a30df2da6364f9afe96c279b2557d152" name="info.phtml" role="magedesign" />
+       </dir> <!-- /frontend/default/default/template/heidelpay -->
+      </dir> <!-- /frontend/default/default/template -->
+     </dir> <!-- /frontend/default/default -->
+    </dir> <!-- /frontend/default -->
+   </dir> <!-- /frontend -->
+   <dir name="modules">
+    <file md5sum="1125fca78ad19e450c374b4de5bec24b" name="Exanto_Heidelpay.xml" role="mageetc" />
+   </dir> <!-- /modules -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+    <max>6.0.0</max>
+   </php>
+   <pearinstaller>
+    <min>1.6.2</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+</package>

@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Exanto
+ * @package    Exanto_Heidelpay
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2008 Phoenix Medien GmbH & Co. KG (http://www.phoenix-medien.de)
+ * @copyright  Copyright (c) 2009 eXanto Internet Solutions (http://www.exanto.de)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+       <Exanto_Heidelpay>
+          <version>0.9.7</version>
+          <depends>
+          <!-- Keine Abhängigkeiten -->
+          </depends>
+       </Exanto_Heidelpay>
+    </modules>
+
+    <global>
+        <!-- Angezeigte zusaetzliche Datenbankfelder fuer dieses Modul -->
+        <fieldsets>
+            <customer_account>
+                <heidelpay_unique_id><system>1</system><ignore>1</ignore></heidelpay_unique_id>
+                <heidelpay_payment_type><system>1</system><ignore>1</ignore></heidelpay_payment_type>
+            </customer_account>
+        </fieldsets>
+        <!-- Models für dieses Modul deklarieren -->
+        <models>
+            <!-- Model-Gruppen Alias für Mage::getModel('heidelpay/...') -->
+            <heidelpay>
+                <!-- Basisklassenname für die Model-Gruppe -->
+                <class>Exanto_Heidelpay_Model</class>
+            </heidelpay>
+        </models>
+        <!-- Helper für dieses Modul -->
+        <helpers>
+          <heidelpay>
+            <class>Exanto_Heidelpay_Helper</class>
+          </heidelpay>
+        </helpers>
+        <!-- Setup Ressource für dieses Modul definieren -->
+        <resources>
+            <!-- Ressourcen Bezeichnung -->
+            <heidelpay_setup>
+                <!-- Setup-Ressource definieren -->
+                <setup>
+                    <!-- In welchem Modul befinden sich die Installations-/Upgrade-Dateien? -->
+                    <module>Exanto_Heidelpay</module>
+                    <class>Exanto_Heidelpay_Model_Entity_Setup</class>
+                </setup>
+                <!-- Datenbankverbindung definieren -->
+                <connection>
+                    <!-- Vorhandene, vom Magento Core aufgebaute Verbindung nutzen -->
+                    <use>core_setup</use>
+                </connection>
+            </heidelpay_setup>
+            <heidelpay_write>
+                <use>core_write</use>
+            </heidelpay_write>
+            <heidelpay_read>
+                <use>core_read</use>
+            </heidelpay_read>
+        </resources>
+        <!-- Blocks für dieses Modul -->
+        <blocks>
+            <heidelpay>
+                <class>Exanto_Heidelpay_Block</class>
+            </heidelpay>
+        </blocks>
+    </global>
+
+    <!-- Einstellungen für das Frontend (Shopbereich) -->
+    <frontend>
+        <routers>
+            <heidelpay>
+                <use>standard</use>
+                <args>
+                    <module>Exanto_Heidelpay</module>
+                    <frontName>heidelpay</frontName>
+                </args>
+            </heidelpay>
+        </routers>
+        <translate>
+            <modules>
+                <Exanto_Heidelpay>
+                    <files>
+                        <default>Exanto_Heidelpay.csv</default>
+                    </files>
+                </Exanto_Heidelpay>
+            </modules>
+        </translate>
+        <!-- Layout Updates -->
+        <layout>
+            <updates>
+                <heidelpay>
+                    <file>heidelpay.xml</file>
+                </heidelpay>
+            </updates>
+        </layout>
+        <secure_url>
+            <heidelpay_process>/heidelpay/process</heidelpay_process>
+        </secure_url>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Exanto_Heidelpay>
+                    <files>
+                        <default>Exanto_Heidelpay.csv</default>
+                    </files>
+                </Exanto_Heidelpay>
+            </modules>
+        </translate>
+    </adminhtml>
+
+    <!-- Standard Konfigurationswerte für dieses Modul -->
+    <default>
+        <!-- 'payment' Konfigurationssektion (tab) -->
+        <payment>
+            <!-- 'heidelpay' Konfigurationsgruppe (fieldset) -->
+            <heidelpay_cc translate="title">
+                <!-- standardmäßig ist diese Bezahlmethode inaktiv -->
+                <active>0</active>
+                <!-- Model welches die Logik für diese Bezahlweise abbildet -->
+                <model>heidelpay/cc</model>
+                <!-- Bestellstatus für neue Bestellungen die mit dieser Methode bezahlt wurden -->
+                <order_status>1</order_status>
+                <!-- Standardtitel für Bezahlseite im Bestellprozeß und die "Zeige Bestellung" Seite -->
+                <title>Credit Card (Heidelpay)</title>
+                <allowspecific>0</allowspecific>
+                <hp_mode>CC</hp_mode>
+            </heidelpay_cc>
+            <heidelpay_dd translate="title">
+                <!-- standardmäßig ist diese Bezahlmethode inaktiv -->
+                <active>0</active>
+                <!-- Model welches die Logik für diese Bezahlweise abbildet -->
+                <model>heidelpay/dd</model>
+                <!-- Bestellstatus für neue Bestellungen die mit dieser Methode bezahlt wurden -->
+                <order_status>1</order_status>
+                <!-- Standardtitel für Bezahlseite im Bestellprozeß und die "Zeige Bestellung" Seite -->
+                <title>Direct Debit (Heidelpay)</title>
+                <allowspecific>0</allowspecific>
+                <hp_mode>DD</hp_mode>
+            </heidelpay_dd>
+            <heidelpay_dc translate="title">
+                <!-- standardmäßig ist diese Bezahlmethode inaktiv -->
+                <active>0</active>
+                <!-- Model welches die Logik für diese Bezahlweise abbildet -->
+                <model>heidelpay/dc</model>
+                <!-- Bestellstatus für neue Bestellungen die mit dieser Methode bezahlt wurden -->
+                <order_status>1</order_status>
+                <!-- Standardtitel für Bezahlseite im Bestellprozeß und die "Zeige Bestellung" Seite -->
+                <title>Debit Card (Heidelpay)</title>
+                <allowspecific>0</allowspecific>
+                <hp_mode>DC</hp_mode>
+            </heidelpay_dc>
+            <heidelpay_ot translate="title">
+                <!-- standardmäßig ist diese Bezahlmethode inaktiv -->
+                <active>0</active>
+                <!-- Model welches die Logik für diese Bezahlweise abbildet -->
+                <model>heidelpay/ot</model>
+                <!-- Bestellstatus für neue Bestellungen die mit dieser Methode bezahlt wurden -->
+                <order_status>1</order_status>
+                <!-- Standardtitel für Bezahlseite im Bestellprozeß und die "Zeige Bestellung" Seite -->
+                <title>Online Transfer (Heidelpay)</title>
+                <allowspecific>0</allowspecific>
+                <hp_mode>OT</hp_mode>
+            </heidelpay_ot>
+            <heidelpay_ot_su translate="title">
+                <!-- standardmäßig ist diese Bezahlmethode inaktiv -->
+                <active>0</active>
+                <!-- Model welches die Logik für diese Bezahlweise abbildet -->
+                <model>heidelpay/otsu</model>
+                <!-- Bestellstatus für neue Bestellungen die mit dieser Methode bezahlt wurden -->
+                <order_status>1</order_status>
+                <!-- Standardtitel für Bezahlseite im Bestellprozeß und die "Zeige Bestellung" Seite -->
+                <title>Sofortueberweisung.de (Heidelpay)</title>
+                <allowspecific>0</allowspecific>
+                <hp_mode>OT</hp_mode>
+            </heidelpay_ot_su>
+            <heidelpay_ot_tp translate="title">
+                <!-- standardmäßig ist diese Bezahlmethode inaktiv -->
+                <active>0</active>
+                <!-- Model welches die Logik für diese Bezahlweise abbildet -->
+                <model>heidelpay/ottp</model>
+                <!-- Bestellstatus für neue Bestellungen die mit dieser Methode bezahlt wurden -->
+                <order_status>1</order_status>
+                <!-- Standardtitel für Bezahlseite im Bestellprozeß und die "Zeige Bestellung" Seite -->
+                <title>T-Pay (Heidelpay)</title>
+                <allowspecific>0</allowspecific>
+                <hp_mode>OT</hp_mode>
+            </heidelpay_ot_tp>
+         </payment>
+    </default>
+</config>
